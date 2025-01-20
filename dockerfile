@@ -1,19 +1,21 @@
-# Temel Python görüntüsünü kullan
+# Use a lightweight Python image
 FROM python:3.10-slim
 
-# FFmpeg'i kur
-RUN apt-get update && apt-get install -y ffmpeg
-npm install fluent-ffmpeg
+# Install system dependencies, including FFmpeg
+RUN apt-get update && apt-get install -y ffmpeg && apt-get clean
 
-# Çalışma dizinini ayarla
+# Set the working directory
 WORKDIR /app
 
-# Gereksinim dosyalarını kopyala ve yükle
+# Copy and install Python dependencies
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Uygulama dosyalarını kopyala
+# Copy the application code
 COPY . .
 
-# Başlatma komutu
+# Expose the port if needed (for debugging or webhooks)
+EXPOSE 5000
+
+# Start the bot
 CMD ["python", "main.py"]
