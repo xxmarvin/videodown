@@ -1,14 +1,20 @@
+# Python tabanlı hafif bir Docker imajı kullan
 FROM python:3.9-slim
 
-# Sistemi güncelle ve ffmpeg'i yükle
-RUN apt-get update && apt-get install -y ffmpeg
+# Gerekli sistem bağımlılıklarını yükle (ffmpeg dahil)
+RUN apt-get update && apt-get install -y ffmpeg curl && apt-get clean
 
-# Gerekli bağımlılıkları yükle
+# Çalışma dizini oluştur
+WORKDIR /app
+
+# Python bağımlılıklarını yüklemek için dosyaları kopyala
 COPY requirements.txt .
+
+# Python bağımlılıklarını yükle
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Ana dosyayı kopyala
+# Uygulama dosyalarını kopyala
 COPY main.py .
 
-# Çalıştırma komutu
+# Bot'u çalıştır
 CMD ["python", "main.py"]
