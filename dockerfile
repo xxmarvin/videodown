@@ -3,6 +3,7 @@ FROM python:3.10-slim
 
 # FFmpeg'i kur
 RUN apt-get update && apt-get install -y ffmpeg
+npm install fluent-ffmpeg
 
 # Çalışma dizinini ayarla
 WORKDIR /app
