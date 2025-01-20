@@ -5,11 +5,6 @@ import yt_dlp
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
-import shutil
-
-if not shutil.which("ffmpeg"):
-    raise RuntimeError("ffmpeg is not installed. Please install ffmpeg to continue.")
-
 # Bot token'ınızı buraya girin
 BOT_TOKEN = '7752492929:AAFe65OD0D3gh1QeaBc1crAacR8ttLSQ5JQ'
 
