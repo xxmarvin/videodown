@@ -1,21 +1,14 @@
-# Use a lightweight Python image
-FROM python:3.10-slim
+FROM python:3.9-slim
 
-# Install system dependencies, including FFmpeg
-RUN apt-get update && apt-get install -y ffmpeg && apt-get clean
+# Sistemi güncelle ve ffmpeg'i yükle
+RUN apt-get update && apt-get install -y ffmpeg
 
-# Set the working directory
-WORKDIR /app
-
-# Copy and install Python dependencies
-COPY requirements.txt requirements.txt
+# Gerekli bağımlılıkları yükle
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
-COPY . .
+# Ana dosyayı kopyala
+COPY main.py .
 
-# Expose the port if needed (for debugging or webhooks)
-EXPOSE 5000
-
-# Start the bot
+# Çalıştırma komutu
 CMD ["python", "main.py"]
